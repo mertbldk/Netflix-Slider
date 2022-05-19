@@ -1,0 +1,242 @@
+@mixin flexType($type1,$type2){
+    display: flex;
+    justify-content: $type1;
+    align-items: $type2;
+}
+@mixin widthHeight($w,$h){
+    width: $w;
+    height: $h;
+}
+@mixin font($size,$color,$weight) {
+    font-size: $size;
+    color: $color;
+    font-weight: $weight;
+}
+@mixin transiton($duraction,$type,$trs) {
+    transition: $duraction $type $trs;
+    -webkit-transition: $duraction $type $trs;
+    -moz-transition: $duraction $type $trs;
+    -ms-transition: $duraction $type $trs;
+    -o-transition: $duraction $type $trs;
+}
+@mixin transform($type) {
+    transform: $type;
+    -webkit-transform: $type;
+    -moz-transform: $type;
+    -ms-transform: $type;
+    -o-transform: $type;
+}
+@mixin borderRadius($number) {
+    border-radius: $number;
+    -webkit-border-radius: $number;
+    -moz-border-radius: $number;
+    -ms-border-radius: $number;
+    -o-border-radius: $number;
+}
+
+#sliderContainer{
+    @include widthHeight(100%, none);
+    margin: 2em 0 0.2em 0;
+    #sliderTitle{
+        @include flexType(flex-start,center);
+        @include widthHeight(none,3em);
+        @include font(1.5em,white,bold);
+        padding-left: 3.3em;   
+    }
+    #sliderMain{
+        @include flexType(center,none);
+        @include widthHeight(100%, none);
+        position: relative;
+        &:hover .buttonBN{
+            opacity: 1;
+            visibility: visible;
+        }
+        .buttonBN{
+            @include widthHeight(2.13em, 100%);
+            @include flexType(center,center);
+            @include font(2em,white,none);
+            position: absolute;
+            border: 0;
+            outline: none;
+            background-color: transparent;
+            opacity: 0;
+            visibility: hidden;
+            cursor: pointer;
+            z-index: 15;
+            span{
+                @include transiton(300ms,all,ease-in-out);
+            }
+            &:hover{
+                background-color: rgba(39, 38, 38, 0.589);
+            }
+            &:hover span{
+                @include transform(scale(1.5))
+            }
+        }
+        #buttonBack{
+            @include borderRadius(0 10px 10px 0);
+            left: 0;
+        }
+        #buttonNext{
+            @include borderRadius(10px 0 0 10px);
+            right: 0;
+        }
+        #sliderScroll{
+            @include transiton(1s,transform,ease-in-out);
+            @include widthHeight(90%,none);
+            display: flex;
+            #sliderCardCap{
+                @include borderRadius(10px);
+                min-width: 20%;
+                height: 10em;
+                position: relative;
+                border: 2px solid transparent;
+                &:hover #sliderCardFront{
+                    @include transform(translateY(-40px) scale(1.3));
+                    opacity: 1;
+                    visibility: visible;
+                    z-index: 10;
+                }
+                &:hover:nth-child(5n+1) #sliderCardFront{
+                    @include transform(scale(1.3) translate(30px,-35px));
+                }
+                &:hover:nth-child(5n-0) #sliderCardFront{
+                    @include transform(scale(1.3) translate(-48px,-35px));
+                }
+                #sliderCardBack{
+                    @include widthHeight(100%,100%);
+                    @include borderRadius(10px);
+                    position: relative;
+                    img{
+                        @include widthHeight(100%,100%);
+                        @include borderRadius(10px);
+                        object-fit: cover;
+                    }
+                    p{
+                        @include widthHeight(100%,none);
+                        @include font(1.1em,white,bold);
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        padding: 0 10px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-shadow: 0 0 5px black;
+                        white-space: nowrap;
+                        text-align: center;
+                        line-height: 30px;
+                    }
+                }
+                #sliderCardFront{
+                    @include transiton(200ms,all,ease-in-out);
+                    @include borderRadius(10px);
+                    width: 110%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    overflow: hidden;
+                    box-shadow: 0 0 2px rgb(26, 25, 25);
+                    #sliderCardImg{
+                        @include widthHeight(100%,9em);
+                        width: 100%;
+                        height: 9em;
+                        img{
+                            @include widthHeight(100%,100%);
+                            object-fit: cover;
+                        }
+                    }
+                    #sliderCardİnformations{
+                        @include widthHeight(100%,9em);
+                        @include flexType(space-evenly, center);
+                        background-color: rgb(26, 25, 25);
+                        flex-direction: column;
+                        #cardControll{
+                            @include flexType(space-around, none);
+                            width: 100%;
+                            #cardControllLeft{
+                                @include flexType(space-evenly, center);
+                                width: 60%;
+                                div{
+                                    @include borderRadius(50%);
+                                    @include flexType(center,center);
+                                    @include widthHeight(2.5em,2.5em);
+                                    @include font(0.8em,white,none);
+                                    border: 2px solid rgba(255, 255, 255, 0.87);
+                                    cursor: pointer;
+                                    background-color: rgba(238, 238, 238, 0.062);
+                                    &:hover{
+                                        border: 2px solid white;
+                                    }
+                                    &:first-child{
+                                        padding-left: 3px;
+                                        background-color: white;
+                                        color: black;
+                                        &:hover{
+                                            background-color: rgba(255, 255, 255, 0.87);
+                                        }
+                                    }
+                                    &:last-child{
+                                        padding-top: 2px;
+                                    }
+                                }
+                            }
+                            #cardControllRight{
+                                @include flexType(center,center);
+                                width: 20%;
+                                div{
+                                    @include flexType(center,center);
+                                    @include widthHeight(2.5em,2.5em);
+                                    @include borderRadius(50%);
+                                    @include font(0.8em,white,none);
+                                    border: 2px solid rgba(255, 255, 255, 0.87);;
+                                    background-color: rgba(238, 238, 238, 0.062);
+                                    cursor: pointer;
+                                    &:hover{
+                                        border: 2px solid white;
+                                    }
+                                }
+                            }
+                        }
+                        #cardİnfo{
+                            @include flexType(space-evenly,center);
+                            width: 100%;
+                            #cardİnfoPercentage{
+                                @include font(0.8em, rgb(20, 148, 20), bold);
+                            }
+                            #cardİnfoAge{
+                                @include font(0.8em, white, none);
+                                padding: 2px 8px;
+                                border: 1px solid rgba(255, 255, 255, 0.329);
+                            }
+                            #cardİnfoDuraction{
+                                @include flexType(none,center);
+                                #cardİnfoDuc{
+                                    @include font(0.8em, white, bold);
+                                    margin-right: 5px;
+                                }
+                                #cardİnfoHd{
+                                    @include font(0.5em, white, none);
+                                    padding: 2px 6px;
+                                    border: 1px solid rgba(255, 255, 255, 0.329);
+                                }
+                            }
+                        }
+                        #cardType{
+                            @include flexType(space-evenly, center);
+                            flex-wrap: wrap;
+                            width: 90%;
+                            list-style: none;
+                            li{
+                                @include font(0.8em,white,none);
+                                margin: 0 2px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
